@@ -1,0 +1,38 @@
+.max-height{
+    max-height: 200px;
+}
+
+.slide{
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.slide img{
+    transition: 0.5s ease-in-out all;
+}
+
+.slide:hover img{
+    transform: scale(1.2);
+}
+
+.slider-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-content{
+    max-width: 40%;
+    max-height: 60%;
+}
+
+
+.navigation-buttons{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+}
