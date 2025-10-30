@@ -7,7 +7,8 @@ var imageSlides = document.querySelectorAll('.slide img')
 var sliderModal = document.querySelector('.slider-modal')
 var modalImage = document.querySelector('.slider-content img')
 
-var slectedIndex = -1;
+var selectedIndex = -1;
+
 
 closeBtn.addEventListener('click',function(){
     sliderModal.classList.replace('d-flex','d-none')
@@ -15,22 +16,22 @@ closeBtn.addEventListener('click',function(){
 
 nextBtn.addEventListener('click', function(){
     
-    slectedIndex = slectedIndex + 1;
-    if (slectedIndex > (imageSlides.length - 1) ) {
-        slectedIndex = 0
+    selectedIndex = selectedIndex + 1;
+    if (selectedIndex > (imageSlides.length - 1) ) {
+        selectedIndex = 0
     }
-    var image = imageSlides[slectedIndex]
+    var image = imageSlides[selectedIndex]
     modalImage.src = image.src
 })
 
 perviousBtn.addEventListener('click', function(){
-    slectedIndex = slectedIndex -1;
+    selectedIndex = selectedIndex -1;
 
-    if (slectedIndex < 0) {
-        slectedIndex = imageSlides.length - 1
+    if (selectedIndex < 0) {
+        selectedIndex = imageSlides.length - 1
     }
 
-    var image = imageSlides[slectedIndex];
+    var image = imageSlides[selectedIndex];
     modalImage.src = image.src
 })
 
@@ -40,7 +41,7 @@ for (let index = 0; index < imageSlides.length; index++) {
     slide.addEventListener('click',function(e){
         sliderModal.classList.replace('d-none','d-flex')
         modalImage.src = e.target.src
-        slectedIndex = index
+        selectedIndex = index
         
     })
 }
