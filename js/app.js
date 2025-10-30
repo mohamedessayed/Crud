@@ -16,14 +16,37 @@ var tableBody = document.querySelector('.customeClass tbody')
 
 var editIndex = -1;
 
+var errorList = []
+
+if (localStorage.getItem('taskList')) {
+    taskList = JSON.parse(localStorage.getItem('taskList'))
+    readListData() //to show data into table
+}
+
 form.addEventListener('submit',function(e){
     e.preventDefault();
 
-    if (form.dataset.role === 'store') {
-        storeNewData() //to add new date to array
-    } else{
-        updateListData(); //tp update exist data
+    errorList = [];
+    
+    validateInput(taskInput)
+    validateInput(dateInput)
+
+    
+    if ( errorList.length == 0 ) {
+        if (form.dataset.role === 'store') {
+            storeNewData() //to add new date to array
+        } else{
+            updateListData(); //to update exist data
+        }
+    } else {
+        for (var error of errorList) {
+            error.classList.add('is-invalid')
+        }
+        alert('please all fileds are required')
+        return false;
     }
+
+    
 
     clearFormInpust() //to clear inputs
     readListData() //to show data into table
@@ -32,6 +55,8 @@ form.addEventListener('submit',function(e){
 
 function storeNewData(){
     taskList.unshift({task:taskInput.value, date:dateInput.value});
+
+    localStorage.setItem('taskList',JSON.stringify(taskList))
 }
 
 function clearFormInpust(){
@@ -63,6 +88,8 @@ function readListData(){
 function deleteListElement(index){
     taskList.splice(index,1)
     readListData(); // to read new data after delete element
+    localStorage.setItem('taskList',JSON.stringify(taskList))
+
 }
 
 
@@ -85,4 +112,25 @@ function updateListData(){
     taskList.splice(editIndex,1,{task:taskInput.value, date:dateInput.value})
 
     form.dataset.role = 'store'
+
+    localStorage.setItem('taskList',JSON.stringify(taskList))
+
 }
+
+
+function validateInput(input){
+    if (input.value === '') {
+        errorList.push(input)
+        return false
+    }
+
+    input.classList.remove('is-invalid')
+    input.classList.add('is-valid')
+
+    return true
+}
+
+
+
+
+
